@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Projects Management :: System Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="layout" content="main"/>
+
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+        <script src="js/jquery/jquery-1.8.2.min.js" type="text/javascript" ></script>
+        <link href="css/customize-template.css" type="text/css" media="screen, projection" rel="stylesheet" />
+        <link rel="stylesheet" href="alert/css/jquery-confirm.css">
+        <style>
+        </style>
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <button class="btn btn-navbar" data-toggle="collapse" data-target="#app-nav-top-bar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a  href="" class="brand"><i class="icon-leaf">Projects Management</i></a>
+                    <div id="app-nav-top-bar" class="nav-collapse">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="body-container">
+            <div id="body-content">
+
+
+                <div class='container'>
+
+                    <div class="signin-row row">
+                        <div class="span4"></div>
+                        <div class="span8">
+                            <div class="container-signin">
+                                <legend>Please Login</legend>
+                                <form action='' method='POST' id='loginForm' class='form-signin' autocomplete='off'>
+                                    <div class="form-inner">
+                                        <div class="input-prepend">
+                                            <span class="add-on" rel="tooltip" title="Login as" data-placement="top">
+                                                <i class="icon-group"></i></span>
+                                            <select name="logas" class='span4' id="logas">
+                                                <option selected value="" disabled>Login As</option>
+                                                <option value="1">Student</option>
+                                                <option value="2">Supervisor</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-prepend">
+                                            <span class="add-on" rel="tooltip" title="First Name" data-placement="top">
+                                                <i class="icon-envelope"></i></span>
+                                            <input type='text' class='span4' id='firstname' name="firstname" placeholder="First Name"/>
+                                        </div>
+
+                                        <div class="input-prepend">
+
+                                            <span class="add-on" rel="tooltip" title="Staff ID or Student ID" data-placement="top">
+                                                <i class="icon-key"></i></span>
+                                            <input type='password' class='span4' id='password' name="password" placeholder="Staff ID or Student ID"/>
+                                        </div>
+                                        <label class="checkbox" for='remember_me'>Remember me
+                                            <input type='checkbox' id='remember_me'/>
+                                        </label>
+                                    </div>
+                                    <footer class="signin-actions">
+                                        <button class="btn btn-primary" type='submit' id="submit"><i class="icon-signin"></i>Login</button>
+                                        &nbsp;&nbsp;<a href="admin/login" class="btn btn-default">Admin</a>
+                                    </footer>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="span3"></div>
+                    </div>
+                    <!--<div class="span4">
+        
+                        </div>-->
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="spinner" class="spinner" style="display:block;">
+            Loading&hellip;
+        </div>
+
+        <footer class="application-footer">
+            <div class="container">
+                <p>Project Managements</p>
+                <div class="disclaimer">
+                    <p>All right reserved.</p>
+                   <p>Copyright © Precious Edeh Jonathan 2017-2019</p>
+                </div>
+            </div>
+        </footer>
+        <script type="text/javascript">
+            $(function () {
+                document.forms['loginForm'].elements['j_username'].focus();
+                $('body').addClass('pattern pattern-sandstone');
+                $("[rel=tooltip]").tooltip();
+            });
+        </script>
+        <script src="js/bootstrap/bootstrap-transition.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-alert.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-modal.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-dropdown.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-scrollspy.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-tab.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-tooltip.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-popover.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-button.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-collapse.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-carousel.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-typeahead.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-affix.js" type="text/javascript" ></script>
+        <script src="js/bootstrap/bootstrap-datepicker.js" type="text/javascript" ></script>
+        <script src="js/jquery/jquery-tablesorter.js" type="text/javascript" ></script>
+        <script src="js/jquery/jquery-chosen.js" type="text/javascript" ></script>
+        <script src="js/jquery/virtual-tour.js" type="text/javascript" ></script>
+        <script src="alert/js/jquery-confirm.js"></script>
+        <script>
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();
+                var logas = $('#logas').val();
+                if (logas == 1) {
+                    //Use ajax to communicate with php here
+                    $.ajax({
+                        url: "students/api/api.process.php?Login",
+                        type: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (data)
+                        {
+                            var rs = JSON.parse(data);
+                            $.alert({
+                                boxWidth: '20%',
+                                useBootstrap: false,
+                                theme: 'supervan',
+                                opacity: 0.5,
+                                icon: rs.ico,
+                                type: rs.tp,
+                                title: rs.t,
+                                animation: 'scale',
+                                closeAnimation: 'scale',
+                                content: rs.m
+                            });
+                            if (rs.s == 1) {
+                                setTimeout(function () {
+                                    window.location = 'students/';
+                                }, 1000);
+                            }
+                        },
+                        error: function () {}
+                    });
+                    //End of ajax request
+                } else if (logas == 2) {
+                    //Use ajax to communicate with php here
+                    $.ajax({
+                        url: "supervisors/api/api.process.php?Login",
+                        type: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (data)
+                        {
+                            var rs = JSON.parse(data);
+                            $.alert({
+                                boxWidth: '20%',
+                                useBootstrap: false,
+                                theme: 'supervan',
+                                opacity: 0.5,
+                                icon: rs.ico,
+                                type: rs.tp,
+                                title: rs.t,
+                                animation: 'scale',
+                                closeAnimation: 'scale',
+                                content: rs.m
+                            });
+                            if (rs.s == 1) {
+                                setTimeout(function () {
+                                    window.location = 'supervisors/';
+                                }, 1000);
+                            }
+                        },
+                        error: function () {}
+                    });
+                    //End of ajax request
+                }
+            });
+        </script>
+    </body>
+</html>
